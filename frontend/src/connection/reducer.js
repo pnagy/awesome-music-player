@@ -15,10 +15,10 @@ export default (state = initialState, action) => {
         ...state,
         state: "disconnected"
       }
-    case "WS_FAILED":
+    case "WS_ERROR":
       return {
         ...state,
-        state: "failed"
+        state: "error"
       }
     case "WS_EVENT":
       return {

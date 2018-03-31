@@ -11,6 +11,10 @@ export const setSocketBasicActions = (socket, store) => {
     store.dispatch({ type: "SERVER_GREETINGS", payload: "Hola, server!" })
   })
 
+  socket.on("disconnect", () => {
+    store.dispatch({ type: "WS_DISCONNECTED" })
+  })
+
   socket.on("action", event => {
     console.log(event)
 
