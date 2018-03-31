@@ -16,13 +16,11 @@ const Container = styled(Paper)`
   padding-right: 10px;
 `
 
-const StyledTextField = styled(TextField)``
-
 const Search = ({ onSearch }) => {
   return (
     <Container>
       <StyledIcon />
-      <StyledTextField hintText="Search..." onChange={(event, value) => onSearch(value)} />
+      <TextField hintText="Search..." onChange={(event, value) => onSearch(value)} />
     </Container>
   )
 }
