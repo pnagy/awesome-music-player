@@ -1,15 +1,12 @@
-import React, { Component } from "react"
 import { connect } from "react-redux"
+import React, { Component } from "react"
+import AppBar from "./components/AppBar"
 
 class App extends Component {
   render() {
     return (
       <div className="app">
-        <div className="connection-state">{this.props.connection.state}</div>
-        <div className="connection-lastMessage">
-          {JSON.stringify(this.props.connection.lastMessage)}
-        </div>
-        <div className="something">Yay!</div>
+        <AppBar onSearch={text => console.log(text)} />
       </div>
     )
   }
