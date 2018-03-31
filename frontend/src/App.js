@@ -1,16 +1,25 @@
 import { connect } from "react-redux"
 import React, { Component } from "react"
+
 import MusicContainer from "./components/MusicContainer"
 import AppBar from "./components/AppBar"
-
 import Album from "./components/Album"
 import Artist from "./components/Artist"
 import TrackList from "./components/TrackList"
+import Player from "./components/Player"
+
+import Display from "./containers/Display"
+
 class App extends Component {
   render() {
     return (
       <div className="app">
         <AppBar onSearch={text => console.log(text)} />
+        <Player
+          track={{ artist: "Rancid", title: "Arrested In Shanghai" }}
+          image="https://img.discogs.com/1K9Z76MRqUFJnPBYvWYjHqqm20Q=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-6761937-1431888584-3196.jpeg.jpg"
+        />
+        <Display />
         <MusicContainer title="Albums">
           <Album
             artist="Rancid"

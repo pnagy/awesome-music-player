@@ -19,6 +19,31 @@ const handleAction = (dispatch, action) => {
         })
       )
       break
+    case "SERVER_LIST_ARTISTS":
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(
+            dispatch({
+              type: "REPLY_SERVER_LIST_ARTISTS",
+              payload: {
+                artists: [
+                  {
+                    name: "Rancid",
+                    image:
+                      "https://img.discogs.com/WwCTP-9Mj9yCc2GN7UrwyGAJkNk=/434x414/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-253307-1187831757.jpeg.jpg"
+                  },
+                  {
+                    name: "Madness",
+                    image:
+                      "https://img.discogs.com/WwCTP-9Mj9yCc2GN7UrwyGAJkNk=/434x414/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-253307-1187831757.jpeg.jpg"
+                  }
+                ]
+              }
+            })
+          )
+        }, 2000)
+      })
+      break
     default:
       return Promise.resolve(
         dispatch({

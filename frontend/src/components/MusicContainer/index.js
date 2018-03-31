@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Paper from "material-ui/Paper"
+import Progress from "../Progress"
 
 const Container = styled(Paper)`
   padding: 20px;
@@ -16,11 +17,11 @@ const Content = styled.div`
 
 const Header = styled.h1``
 
-const MusicContainer = ({ title, children, onBack }) => {
+const MusicContainer = ({ title, children, isLoading, onBack }) => {
   return (
     <Container>
       <Header>{title}</Header>
-      <Content>{children}</Content>
+      {isLoading ? <Progress /> : <Content>{children}</Content>}
     </Container>
   )
 }
