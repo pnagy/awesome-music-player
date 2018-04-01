@@ -18,7 +18,7 @@ export default ({ source, isPaused, onPlay, onPause }) => {
       onPlay={onPlay}
       onPause={onPause}
       innerRef={handlePlayback}
-      src="http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg"
+      src={source}
     />
   )
 }

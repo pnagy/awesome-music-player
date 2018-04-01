@@ -5,7 +5,7 @@ export const playTrack = track => dispatch => {
   })
   dispatch({
     type: "SERVER_GET_TRACK_URL",
-    payload: { artist: track.artist, album: track.album, position: track.position }
+    payload: track
   })
 }
 

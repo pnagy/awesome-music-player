@@ -25,7 +25,8 @@ export default (state = initialState, action) => {
         selected: {
           image: action.payload.image,
           artist: action.payload.artist,
-          album: action.payload.album
+          album: action.payload.album,
+          year: action.payload.year
         },
         tracks: action.payload.tracks
       }
