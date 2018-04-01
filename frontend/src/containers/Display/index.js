@@ -73,7 +73,7 @@ class Display extends React.Component {
             this.props.actions.player.playTrack({
               ...display.selected,
               title: track.title,
-              position: display.tracks.indexOf(track)
+              position: display.tracks.findIndex(song => song.title === track.title) + 1
             })
           }
           currentlyPlayingTrack={!player.isPaused ? `${player.artist}-${player.title}` : null}
