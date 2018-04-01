@@ -18,39 +18,18 @@ const handleAction = (dispatch, action) => {
           payload: "Hey, client!"
         })
       )
-      break
-    case "SERVER_LIST_ARTISTS":
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(
-            dispatch({
-              type: "REPLY_SERVER_LIST_ARTISTS",
-              payload: {
-                artists: [
-                  {
-                    name: "Rancid",
-                    image:
-                      "https://img.discogs.com/WwCTP-9Mj9yCc2GN7UrwyGAJkNk=/434x414/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-253307-1187831757.jpeg.jpg"
-                  },
-                  {
-                    name: "Madness",
-                    image:
-                      "https://img.discogs.com/WwCTP-9Mj9yCc2GN7UrwyGAJkNk=/434x414/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-253307-1187831757.jpeg.jpg"
-                  }
-                ]
-              }
-            })
-          )
-        }, 2000)
+    case "SERVER_LIST_MUSIC_LIBRARY":
+      return require("./getMusicLibrary").then(music => {
+        return {
+          type: "REPLY_LIST_MUSIC_LIBRARY",
+          payload: music
+        }
       })
-      break
     default:
-      return Promise.resolve(
-        dispatch({
-          type: "UNSUPPORTED_ACTION",
-          error: `Action '${action.type}' not supported by this server`
-        })
-      )
+      return Promise.resolve({
+        type: "UNSUPPORTED_ACTION",
+        error: `Action '${action.type}' not supported by this server`
+      })
   }
 }
 
@@ -62,9 +41,11 @@ io.on("connection", socket => {
   socket.on("action", action => {
     console.log("Incoming action", action)
 
-    handleAction(dispatch, action).catch(err => {
-      console.error("Failed to process action", err)
-    })
+    handleAction(dispatch, action)
+      .then(reply => dispatch(reply))
+      .catch(err => {
+        console.error("Failed to process action", err)
+      })
   })
 })
 

@@ -32,7 +32,7 @@ const preparePrettyObject = rawResponse => {
   }
 }
 
-const getAlbumMetadata = ({ artist, album, year }) => {
+module.exports = ({ artist, album, year }) => {
   const params = {
     artist,
     year,
@@ -45,5 +45,3 @@ const getAlbumMetadata = ({ artist, album, year }) => {
     .then(preparePrettyObject)
     .catch(err => console.log(err))
 }
-
-module.exports = { getAlbumMetadata }
