@@ -14,12 +14,6 @@ export const setSocketBasicActions = (socket, store) => {
     store.dispatch({ type: "WS_DISCONNECTED" })
   })
 
-  // socket.on("action", event => {
-  //   console.log(event)
-
-  //   store.dispatch({ type: "WS_EVENT", payload: event })
-  // })
-
   socket.on("connect_error", error => {
     store.dispatch({ type: "WS_ERROR", payload: error.toString() })
   })

@@ -27,6 +27,8 @@ export default (state = initialState, action) => {
       }
     case "REPLY_GET_TRACK_URL":
       return { ...state, source: action.payload, isPaused: false }
+    case "WS_CONNECTED":
+      return initialState
     default:
       return state
   }

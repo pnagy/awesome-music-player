@@ -36,7 +36,8 @@ export default (state = initialState, action) => {
         selected: null,
         tracks: null
       }
-
+    case "WS_CONNECTED":
+      return initialState
     default:
       return state
   }
