@@ -28,10 +28,27 @@ const handleAction = (dispatch, action) => {
           }
         })
         .catch(err => {
-          console.error("Cannot get music library", err)
+          const errorMsg = "Cannot get music library"
+          console.error(errorMsg, err)
           return {
             type: "ERROR_LIST_MUSIC_LIBRARY",
-            payload: "Failed to read music library"
+            payload: errorMsg
+          }
+        })
+    case "SERVER_GET_TRACK_URL":
+      return require("./getTrackUrl")(action.payload)
+        .then(url => {
+          return {
+            type: "REPLY_GET_TRACK_URL",
+            payload: url
+          }
+        })
+        .catch(err => {
+          const errorMsg = "Cannot get music library"
+          console.error(errorMsg, err)
+          return {
+            type: "ERROR_GET_TRACK_URL",
+            payload: errorMsg
           }
         })
     default:
