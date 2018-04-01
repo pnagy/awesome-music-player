@@ -1,11 +1,7 @@
 import { connect } from "react-redux"
 import React, { Component } from "react"
 
-import MusicContainer from "./components/MusicContainer"
 import AppBar from "./components/AppBar"
-import Album from "./components/Album"
-import Artist from "./components/Artist"
-import TrackList from "./components/TrackList"
 import Player from "./components/Player"
 
 import Error from "./components/Error"
