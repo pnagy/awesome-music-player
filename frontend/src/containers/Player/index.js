@@ -6,6 +6,7 @@ import * as playerActions from "./actions"
 
 class Player extends React.Component {
   render() {
+    if (!this.props.player.source) return null
     return (
       <PlayerElement
         onPlay={this.props.actions.continuePlayback}
