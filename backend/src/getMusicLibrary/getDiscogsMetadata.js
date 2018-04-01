@@ -1,11 +1,12 @@
 const fetch = require("isomorphic-fetch")
 const querystring = require("querystring")
+const config = require("../config")
 const _ = require("lodash")
 
 const sendMetadataRequest = url => {
   const options = {
     headers: {
-      Authorization: "Discogs token=lwwHXTvSrRcyycPWcoyMBEbFPdLaIeffzythsyhE",
+      Authorization: config.DISCOGS_AUTH,
       "Content-Type": "application/json"
     },
     method: "GET"

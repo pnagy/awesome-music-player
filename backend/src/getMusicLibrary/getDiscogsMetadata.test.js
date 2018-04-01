@@ -1,7 +1,7 @@
-const getMetadata = require("./getMetadata")
+const getMetadata = require("./getDiscogsMetadata")
 
-describe("getMetadata", () => {
-  it("should metadata", () => {
+describe("Getting Metadata", () => {
+  it("should get it", () => {
     return getMetadata({ artist: "Rancid", album: "Indestructible", year: 2003 }).then(result => {
       console.log(result)
     })
