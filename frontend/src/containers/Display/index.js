@@ -6,32 +6,17 @@ import * as displayActions from "./actions"
 import MusicContainer from "../../components/MusicContainer"
 import TrackList from "../../components/TrackList"
 import Album from "../../components/Album"
-import Artist from "../../components/Artist"
 
-const ArtistList = ({ isLoading, title, artists, onSelect }) => (
-  <MusicContainer isLoading={isLoading} title={title}>
-    {artists.map(artist => {
-      return (
-        <Artist
-          name={artist.name}
-          key={artist.name}
-          image={artist.image}
-          onClick={() => onSelect(artist.name)}
-        />
-      )
-    })}
-  </MusicContainer>
-)
-
-const ArtistView = ({ isLoading, title, albums, onSelect }) => (
+const AlbumList = ({ isLoading, title, albums, onSelect }) => (
   <MusicContainer isLoading={isLoading} title={title}>
     {albums.map(album => {
       return (
-        <Artist
-          name={album.name}
+        <Album
+          artist={album.artist}
+          title={album.album}
           key={album.name}
           image={album.image}
-          onClick={() => onSelect(album.name)}
+          onClick={() => onSelect(album)}
         />
       )
     })}
@@ -53,7 +38,7 @@ class Display extends React.Component {
     const isLoading = display.loadingState === "loading"
     if (display.error) return <Error error={display.error} />
 
-    if (display.selected.artist && display.selected.album) {
+    if (display.selected) {
       return (
         <AlbumView
           isLoading={isLoading}
@@ -65,27 +50,16 @@ class Display extends React.Component {
           onPlay={track => console.log("Playback started", track)}
         />
       )
-    }
-
-    if (display.selected.artist && !display.selected.album) {
+    } else {
       return (
-        <ArtistView
+        <AlbumList
           isLoading={isLoading}
-          title={`Albums of ${display.selected.artist}`}
+          title="Albums"
           albums={display.entries}
-          onSelect={album => actions.selectAlbum(display.selected.artist, album)}
+          onSelect={album => actions.selectAlbum(album)}
         />
       )
     }
-
-    return (
-      <ArtistList
-        isLoading={isLoading}
-        title="Artists"
-        artists={display.entries}
-        onSelect={artist => actions.selectArtist(artist)}
-      />
-    )
   }
 }
 

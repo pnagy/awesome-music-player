@@ -18,7 +18,8 @@ export default (state = initialState, action) => {
     case "WS_ERROR":
       return {
         ...state,
-        state: "error"
+        state: "error",
+        error: action.payload
       }
     case "WS_EVENT":
       return {

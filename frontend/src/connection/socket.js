@@ -22,6 +22,6 @@ export const setSocketBasicActions = (socket, store) => {
   })
 
   socket.on("connect_error", error => {
-    store.dispatch({ type: "WS_ERROR" })
+    store.dispatch({ type: "WS_ERROR", payload: error.toString() })
   })
 }
