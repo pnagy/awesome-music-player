@@ -1,7 +1,7 @@
 const initialState = {
   selected: null,
   albums: [],
-  tracks: null,
+  tracks: [],
   error: null,
   loadingState: "initial"
 }
@@ -11,7 +11,12 @@ export default (state = initialState, action) => {
     case "SERVER_LIST_MUSIC_LIBRARY":
       return { ...state, loadingState: "loading" }
     case "REPLY_LIST_MUSIC_LIBRARY":
-      return { ...state, loadingState: "done", albums: action.payload }
+      return {
+        ...state,
+        loadingState: "done",
+        albums: action.payload.filter(album => album),
+        error: null
+      }
     case "ERROR_LIST_MUSIC_LIBRARY":
       return { ...state, loadingState: "error", error: action.payload }
     case "SELECT_ALBUM":

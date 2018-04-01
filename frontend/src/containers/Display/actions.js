@@ -1,4 +1,4 @@
-export const listArtists = () => {
+export const listAlbums = () => {
   return { type: "SERVER_LIST_MUSIC_LIBRARY" }
 }
 

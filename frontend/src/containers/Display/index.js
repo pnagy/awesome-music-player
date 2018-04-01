@@ -31,7 +31,7 @@ const AlbumView = ({ isLoading, title, album, artist, tracks, onPause, onPlay })
 
 class Display extends React.Component {
   componentDidMount() {
-    this.props.actions.listArtists("Rancid")
+    this.props.actions.listAlbums("Rancid")
   }
   render() {
     const { display, actions } = this.props
@@ -45,7 +45,7 @@ class Display extends React.Component {
           title={`Tracks from ${display.selected.album} by ${display.selected.artist}`}
           album={display.selected.album}
           artist={display.selected.artist}
-          tracks={display.entries}
+          tracks={display.tracks}
           onPause={() => console.log("Playback paused")}
           onPlay={track => console.log("Playback started", track)}
         />
@@ -55,7 +55,7 @@ class Display extends React.Component {
         <AlbumList
           isLoading={isLoading}
           title="Albums"
-          albums={display.entries}
+          albums={display.albums}
           onSelect={album => actions.selectAlbum(album)}
         />
       )

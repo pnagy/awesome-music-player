@@ -19,12 +19,20 @@ const handleAction = (dispatch, action) => {
         })
       )
     case "SERVER_LIST_MUSIC_LIBRARY":
-      return require("./getMusicLibrary").then(music => {
-        return {
-          type: "REPLY_LIST_MUSIC_LIBRARY",
-          payload: music
-        }
-      })
+      return require("./getMusicLibrary")()
+        .then(music => {
+          return {
+            type: "REPLY_LIST_MUSIC_LIBRARY",
+            payload: music
+          }
+        })
+        .catch(err => {
+          console.error("Cannot get music library", err)
+          return {
+            type: "ERROR_LIST_MUSIC_LIBRARY",
+            payload: "Failed to read music library"
+          }
+        })
     default:
       return Promise.resolve({
         type: "UNSUPPORTED_ACTION",

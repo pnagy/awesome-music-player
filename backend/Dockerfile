@@ -10,5 +10,5 @@ ADD package.json .
 RUN yarn --prod && yarn cache clean
 
 ADD src .
-
+ADD static/music /home/user/music
 CMD node index.js

@@ -4,17 +4,13 @@ const fs = require("fs")
 const readdir = promisify(fs.readdir)
 
 const listAlbumDirectories = library => {
-  const musicDir = path.join(__dirname, library)
   const isDirectory = source => fs.lstatSync(source).isDirectory()
-  return readdir(musicDir).then(content =>
-    content.map(name => path.join(musicDir, name)).filter(isDirectory)
+  return readdir(library).then(content =>
+    content.map(name => path.join(library, name)).filter(isDirectory)
   )
 }
 
-const parseAlbumDir = (dir, library) => {
-  const base = path.join(__dirname, library) + path.sep
-  return dir.replace(base, "")
-}
+const parseAlbumDir = (dir, library) => dir.replace(library + path.sep, "")
 
 const readMusicListFromDir = libraryPath =>
   listAlbumDirectories(libraryPath).then(albumDirs =>
@@ -31,7 +27,4 @@ const parseAlbumList = albumList => {
   })
 }
 
-module.exports = musicLibraryPath =>
-  readMusicListFromDir(musicLibraryPath)
-    .then(parseAlbumList)
-    .catch(err => console.log(err))
+module.exports = musicLibraryPath => readMusicListFromDir(musicLibraryPath).then(parseAlbumList)

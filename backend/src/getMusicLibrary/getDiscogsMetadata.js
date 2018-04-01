@@ -21,19 +21,24 @@ const searchForAlbum = params => {
 
 const loadReleaseInfo = searchResults => {
   const url = searchResults[0].resource_url
+  console.log(url)
   return sendMetadataRequest(url).then(res => res.json())
 }
 
 const preparePrettyObject = rawResponse => {
+  const image = rawResponse.images
+    .filter(image => image.type === "primary" || image.type === "secondary")
+    .shift()
   return {
     artist: rawResponse.artists[0].name,
     album: rawResponse.title,
     tracks: rawResponse.tracklist.map(track => _.omit(track, "type_")),
-    image: rawResponse.images.filter(image => image.type === "primary")[0]
+    image: image.uri || image.uri150
   }
 }
 
 module.exports = ({ artist, album, year }) => {
+  console.log("Getting metadata for", artist, album, year)
   const params = {
     artist,
     year,
@@ -44,5 +49,8 @@ module.exports = ({ artist, album, year }) => {
   return searchForAlbum(params)
     .then(data => loadReleaseInfo(data.results))
     .then(preparePrettyObject)
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log("Failed to load metadata of", artist, album, year)
+      console.log(err)
+    })
 }
