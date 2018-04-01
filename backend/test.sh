@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# https://api.discogs.com/releases/8994495
-# https://api.discogs.com/releases/501472
-# https://api.discogs.com/releases/1088109
-# https://api.discogs.com/releases/9998231
-# https://api.discogs.com/releases/3406095
-curl "https://api.discogs.com/releases/3406095" -H "Authorization: Discogs token=lwwHXTvSrRcyycPWcoyMBEbFPdLaIeffzythsyhE"
+for number in {1..12}
+do
+`cp ./static/music/Street_Dogs-Back_to_the_World-2005/furelise.mp3 ./static/music/Street_Dogs-Back_to_the_World-2005/$number.mp3`
+done
+exit 0

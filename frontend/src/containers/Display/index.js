@@ -70,7 +70,11 @@ class Display extends React.Component {
           tracks={display.tracks}
           onPause={this.props.actions.player.pauseTrack}
           onPlay={track =>
-            this.props.actions.player.playTrack({ ...display.selected, title: track.title })
+            this.props.actions.player.playTrack({
+              ...display.selected,
+              title: track.title,
+              position: display.tracks.indexOf(track)
+            })
           }
           currentlyPlayingTrack={!player.isPaused ? `${player.artist}-${player.title}` : null}
           onBackClick={actions.display.clearAlbumSelection}

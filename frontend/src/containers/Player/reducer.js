@@ -13,8 +13,7 @@ export default (state = initialState, action) => {
         ...state,
         artist: action.payload.artist,
         title: action.payload.title,
-        image: action.payload.image,
-        isPaused: false
+        image: action.payload.image
       }
     case "PAUSE_TRACK":
       return {
@@ -27,7 +26,7 @@ export default (state = initialState, action) => {
         isPaused: false
       }
     case "REPLY_GET_TRACK_URL":
-      return { ...state, source: action.payload }
+      return { ...state, source: action.payload, isPaused: false }
     default:
       return state
   }

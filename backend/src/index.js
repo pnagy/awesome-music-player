@@ -1,11 +1,12 @@
-const { APP_PORT, APP_HOST } = require("./config")
+const { APP_PORT, APP_HOST, LIBRARY_PATH } = require("./config")
+const finalhandler = require("finalhandler")
+const serveStatic = require("serve-static")
 
+const serve = serveStatic(LIBRARY_PATH)
 const handler = (req, res) => {
-  res.writeHead("404")
-  console.log("Received non-socket io connection")
-  return res.end(`This is not the server you are looking for.`)
+  var done = finalhandler(req, res)
+  serve(req, res, done)
 }
-
 const app = require("http").createServer(handler)
 const io = require("socket.io")(app)
 
