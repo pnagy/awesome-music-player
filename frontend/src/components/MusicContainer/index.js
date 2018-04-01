@@ -15,11 +15,20 @@ const Content = styled.div`
   }
 `
 
+const BackNavigation = styled.div`
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+`
+
 const Header = styled.h1``
 
-const MusicContainer = ({ title, children, isLoading, onBack }) => {
+const MusicContainer = ({ title, children, isLoading, onBackClick, backLabel }) => {
   return (
     <Container>
+      {backLabel ? (
+        <BackNavigation onClick={onBackClick}>{`<<<  ${backLabel}`}</BackNavigation>
+      ) : null}
       <Header>{title}</Header>
       {isLoading ? <Progress /> : <Content>{children}</Content>}
     </Container>

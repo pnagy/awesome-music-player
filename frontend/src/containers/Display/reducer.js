@@ -22,7 +22,11 @@ export default (state = initialState, action) => {
     case "SELECT_ALBUM":
       return {
         ...state,
-        selected: { artist: action.payload.artist, album: action.payload.album },
+        selected: {
+          image: action.payload.image,
+          artist: action.payload.artist,
+          album: action.payload.album
+        },
         tracks: action.payload.tracks
       }
     case "CLEAR_ALBUM_SELECTION":

@@ -2,10 +2,10 @@ import { connect } from "react-redux"
 import React, { Component } from "react"
 
 import AppBar from "./components/AppBar"
-import Player from "./components/Player"
 
 import Error from "./components/Error"
 import Display from "./containers/Display"
+import Player from "./containers/Player"
 
 class App extends Component {
   render() {
@@ -18,10 +18,7 @@ class App extends Component {
           <Error error={this.props.connection.error || this.props.connection.state} />
         ) : (
           <div>
-            <Player
-              track={{ artist: "Rancid", title: "Arrested In Shanghai" }}
-              image="https://img.discogs.com/1K9Z76MRqUFJnPBYvWYjHqqm20Q=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-6761937-1431888584-3196.jpeg.jpg"
-            />
+            <Player />
             <Display />
           </div>
         )}

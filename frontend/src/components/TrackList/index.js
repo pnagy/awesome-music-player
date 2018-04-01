@@ -34,7 +34,7 @@ const SmallColumn = styled(TableRowColumn)`
   width: 35px;
 `
 
-const TrackList = ({ artist, tracks, onPlay, onPause }) => (
+const TrackList = ({ artist, currentlyPlayingTrack, image, tracks, onPlay, onPause }) => (
   <StyledTable selectable={false} multiSelectable={false}>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false} enableSelectAll={false}>
       <TableRow>
@@ -47,12 +47,15 @@ const TrackList = ({ artist, tracks, onPlay, onPause }) => (
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
       {tracks.map(track => (
-        <TableRow key={track.position} hovered={track.isPlaying}>
+        <TableRow
+          key={track.position}
+          hovered={currentlyPlayingTrack === `${artist}-${track.title}`}
+        >
           <SmallColumn style={{ width: "40px" }}>
-            {track.isPlaying ? (
+            {currentlyPlayingTrack === `${artist}-${track.title}` ? (
               <PauseButton onClick={() => onPause()} />
             ) : (
-              <PlayButton onClick={() => onPlay(track)} />
+              <PlayButton onClick={() => onPlay({ ...track, artist, image })} />
             )}
           </SmallColumn>
           <SmallColumn>{track.position}</SmallColumn>

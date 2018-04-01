@@ -3,18 +3,19 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import Error from "../../components/Error"
 import * as displayActions from "./actions"
+import * as playerActions from "../Player/actions"
 import MusicContainer from "../../components/MusicContainer"
 import TrackList from "../../components/TrackList"
 import Album from "../../components/Album"
 
-const AlbumList = ({ isLoading, title, albums, onSelect }) => (
-  <MusicContainer isLoading={isLoading} title={title}>
+const AlbumList = ({ isLoading, albums, onSelect }) => (
+  <MusicContainer isLoading={isLoading} title={"Albums"}>
     {albums.map(album => {
       return (
         <Album
+          key={`${album.artist}-${album.album}`}
           artist={album.artist}
           title={album.album}
-          key={album.name}
           image={album.image}
           onClick={() => onSelect(album)}
         />
@@ -23,18 +24,39 @@ const AlbumList = ({ isLoading, title, albums, onSelect }) => (
   </MusicContainer>
 )
 
-const AlbumView = ({ isLoading, title, album, artist, tracks, onPause, onPlay }) => (
-  <MusicContainer isLoading={isLoading} title={title}>
-    <TrackList artist={artist} tracks={tracks} onPause={onPause} onPlay={onPlay} />
+const AlbumView = ({
+  isLoading,
+  title,
+  artist,
+  tracks,
+  onPause,
+  onPlay,
+  currentlyPlayingTrack,
+  onBackClick,
+  backLabel
+}) => (
+  <MusicContainer
+    isLoading={isLoading}
+    title={title}
+    onBackClick={onBackClick}
+    backLabel="Back to albums"
+  >
+    <TrackList
+      artist={artist}
+      tracks={tracks}
+      currentlyPlayingTrack={currentlyPlayingTrack}
+      onPause={onPause}
+      onPlay={onPlay}
+    />
   </MusicContainer>
 )
 
 class Display extends React.Component {
   componentDidMount() {
-    this.props.actions.listAlbums("Rancid")
+    this.props.actions.display.listAlbums("Rancid")
   }
   render() {
-    const { display, actions } = this.props
+    const { display, actions, player } = this.props
     const isLoading = display.loadingState === "loading"
     if (display.error) return <Error error={display.error} />
 
@@ -46,24 +68,32 @@ class Display extends React.Component {
           album={display.selected.album}
           artist={display.selected.artist}
           tracks={display.tracks}
-          onPause={() => console.log("Playback paused")}
-          onPlay={track => console.log("Playback started", track)}
+          onPause={this.props.actions.player.pauseTrack}
+          onPlay={track =>
+            this.props.actions.player.playTrack({ ...display.selected, title: track.title })
+          }
+          currentlyPlayingTrack={!player.isPaused ? `${player.artist}-${player.title}` : null}
+          onBackClick={actions.display.clearAlbumSelection}
         />
       )
     } else {
       return (
         <AlbumList
           isLoading={isLoading}
-          title="Albums"
           albums={display.albums}
-          onSelect={album => actions.selectAlbum(album)}
+          onSelect={album => actions.display.selectAlbum(album)}
         />
       )
     }
   }
 }
 
-const mapStateToProps = ({ display }) => ({ display })
-const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(displayActions, dispatch) })
+const mapStateToProps = ({ display, player }) => ({ display, player })
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    display: bindActionCreators(displayActions, dispatch),
+    player: bindActionCreators(playerActions, dispatch)
+  }
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Display)
