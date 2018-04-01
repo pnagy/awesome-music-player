@@ -7,8 +7,8 @@ const Container = styled(Card)`
   height: 300px;
 `
 
-const Album = ({ artist, title, image }) => (
-  <Container>
+const Album = ({ artist, title, image, onClick }) => (
+  <Container onClick={onClick}>
     <CardMedia overlay={<CardTitle title={title} subtitle={artist} />}>
       <img src={image} alt="" />
     </CardMedia>

@@ -24,8 +24,8 @@ const AlbumList = ({ isLoading, title, albums, onSelect }) => (
 )
 
 const AlbumView = ({ isLoading, title, album, artist, tracks, onPause, onPlay }) => (
-  <MusicContainer isLoading={isLoading} title={`Tracks of ${album} by ${artist}`}>
-    <TrackList tracks={tracks} onPause={onPause} onPlay={onPlay} />
+  <MusicContainer isLoading={isLoading} title={title}>
+    <TrackList artist={artist} tracks={tracks} onPause={onPause} onPlay={onPlay} />
   </MusicContainer>
 )
 
@@ -42,7 +42,7 @@ class Display extends React.Component {
       return (
         <AlbumView
           isLoading={isLoading}
-          title={`Tracks from ${display.selected.album} by ${display.selected.artist}`}
+          title={`${display.selected.artist} - ${display.selected.album}`}
           album={display.selected.album}
           artist={display.selected.artist}
           tracks={display.tracks}
